@@ -4,10 +4,10 @@
   <artifactId>TestPiple</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  
+  <!--  
   <properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.target.source>1.8</maven.target.source>
 	</properties>
-  
+  -->
 </project>
