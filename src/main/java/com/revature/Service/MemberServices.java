@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.revature.model.Member;
 import com.revature.repository.MemberRepo;
 
 @Service("ms")
@@ -23,8 +24,9 @@ public class MemberServices
 		this.mr=mr;
 	}
 	
-	public ResponseEntity<Object> validate(String username,String password)
+	public ResponseEntity<Object> validate(Member m)
 	{
+		/*
 		if(password.equals("hi"))
 		{
 			return new ResponseEntity<Object>("Success",HttpStatus.OK);
@@ -33,6 +35,12 @@ public class MemberServices
 		{
 			return new ResponseEntity<Object>("Did not enter hi",HttpStatus.BAD_REQUEST);
 		}
+		*/
+		
+		System.out.println(m.getUsername()+ " "+m.getPassword());
+		
+		return new ResponseEntity<Object>("Success",HttpStatus.OK);
+
 	}
 	
 	
