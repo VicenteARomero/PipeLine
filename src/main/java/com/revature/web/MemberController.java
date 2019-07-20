@@ -34,8 +34,8 @@ public class MemberController
 	}
 	
 	//Validates Members login
-	
-	@RequestMapping(value ="/login",consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.OPTIONS )
+	@RequestMapping(method = RequestMethod.OPTIONS)
+	@PostMapping(value ="/login",consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Object> getMemberByUsername(@RequestBody Member m)
 	{
 		return ms.validate(m);
