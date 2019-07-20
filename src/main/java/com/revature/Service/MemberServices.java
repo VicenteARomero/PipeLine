@@ -31,7 +31,6 @@ public class MemberServices
 	
 	public ResponseEntity<Object> validate(Member m)
 	{
-		LOGY.info("Entered validate method in Member Services");
 		
 		if(m.getUsername().equals("super2") && m.getPassword().equals("pass"))
 		{

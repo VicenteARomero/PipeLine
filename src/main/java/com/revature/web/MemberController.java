@@ -39,7 +39,6 @@ public class MemberController
 	@PostMapping(value ="/login",consumes=MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Object> getMemberByUsername(@RequestBody Member m)
 	{
-		LOGY.info("MemberController: getMemberByUsername entered");
 		return ms.validate(m);
 	}
 }
