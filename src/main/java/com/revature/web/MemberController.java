@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.Service.MemberServices;
 import com.revature.model.Member;
 
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins="/**")
 @RestController
 @RequestMapping(value="/Api")
 public class MemberController
