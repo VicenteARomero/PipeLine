@@ -26,20 +26,7 @@ public class MemberServices
 	
 	public ResponseEntity<Object> validate(Member m)
 	{	
-		/*
-		if()
-		{
-			return new ResponseEntity<Object>("Success",HttpStatus.OK);
-
-		}
-		else
-		{
-			return new ResponseEntity<Object>("Failed",HttpStatus.OK);
-
-		}
-		*/
-		
-		return new ResponseEntity<Object>("Validation successful",HttpStatus.OK);
+		return new ResponseEntity<Object>(m,HttpStatus.OK);
 	}
 	
 	
