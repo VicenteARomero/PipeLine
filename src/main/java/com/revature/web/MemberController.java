@@ -40,12 +40,6 @@ public class MemberController
 		return ms.validate(m);
 	}
 	
-	@RequestMapping(value="/**", method = RequestMethod.OPTIONS)
-	public @ResponseBody ResponseEntity<Object> handle()
-	{
-		return new ResponseEntity<Object>(HttpStatus.OK);
-	}
-	
 	/*
 	@PostMapping(value="/createMember")
 	public @ResponseBody ResponseEntity<Object> createMember(@RequestBody Member m)
