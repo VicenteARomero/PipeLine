@@ -41,9 +41,9 @@ public class MemberController
 	}
 	
 	@RequestMapping(value="/**", method = RequestMethod.OPTIONS)
-	public @ResponseBody ResponseEntity handle()
+	public @ResponseBody ResponseEntity<Object> handle()
 	{
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
 	
 	/*
