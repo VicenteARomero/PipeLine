@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,19 +33,18 @@ public class MemberController
 		this.ms=ms;
 	}
 	
-	/*
-	@PostMapping(value ="/login")
-	public @ResponseBody ResponseEntity<Object> getMemberByUsername(@RequestParam String u, @RequestParam String p)
-	{
-		return new ResponseEntity<Object>("Success",HttpStatus.OK);
-	}
-	*/
+	//Validates Members login
 	
-	
-	@PostMapping(value ="/login",consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value ="/login",consumes=MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.OPTIONS )
 	public @ResponseBody ResponseEntity<Object> getMemberByUsername(@RequestBody Member m)
 	{
 		return ms.validate(m);
 	}
-	
+	/*
+	@PostMapping(value="/createMember")
+	public @ResponseBody ResponseEntity<Object> createMember(@RequestBody Member m)
+	{
+		return ms.createUser();
+	}
+	*/
 }
