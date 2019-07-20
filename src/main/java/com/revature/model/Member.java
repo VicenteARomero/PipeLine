@@ -10,6 +10,12 @@ public class Member
 	private String region;
 	
 	
+	public Member()
+	{
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Member(int id, String username, String password, String serverName, String region)
 	{
 		super();
@@ -19,6 +25,17 @@ public class Member
 		this.serverName = serverName;
 		this.region = region;
 	}
+	
+	public Member(String username, String password)
+	{
+		this.username=username;
+		this.password=password;
+		id=0;
+		serverName="";
+		region ="";
+		
+	}
+	
 	public int getId()
 	{
 		return id;

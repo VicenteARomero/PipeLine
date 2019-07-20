@@ -8,6 +8,11 @@ public class Item
 	private long timeStamp;
 	private int memberId;
 	
+	public Item()
+	{
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Item(int id, double minPrice, long timeStamp, int memberId)
 	{
 		super();

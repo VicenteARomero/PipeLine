@@ -25,22 +25,21 @@ public class MemberServices
 	}
 	
 	public ResponseEntity<Object> validate(Member m)
-	{
+	{	
 		/*
-		if(password.equals("hi"))
+		if()
 		{
 			return new ResponseEntity<Object>("Success",HttpStatus.OK);
+
 		}
 		else
 		{
-			return new ResponseEntity<Object>("Did not enter hi",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>("Failed",HttpStatus.OK);
+
 		}
 		*/
 		
-		System.out.println(m.getUsername()+ " "+m.getPassword());
-		
-		return new ResponseEntity<Object>("Success",HttpStatus.OK);
-
+		return new ResponseEntity<Object>("Validation successful",HttpStatus.OK);
 	}
 	
 	

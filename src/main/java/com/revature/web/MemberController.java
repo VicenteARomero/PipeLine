@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.Service.MemberServices;
 import com.revature.model.Member;
 
-@CrossOrigin(origins="/*")
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
-@RequestMapping(value="/PlusUltraApi")
+@RequestMapping(value="/Api")
 public class MemberController
 {
+	
 	private MemberServices ms;
 	
 	@Autowired
@@ -31,12 +32,19 @@ public class MemberController
 		this.ms=ms;
 	}
 	
+	/*
+	@PostMapping(value ="/login")
+	public @ResponseBody ResponseEntity<Object> getMemberByUsername(@RequestParam String u, @RequestParam String p)
+	{
+		return new ResponseEntity<Object>("Success",HttpStatus.OK);
+	}
+	*/
 	
-	@PostMapping(value ="/validate", consumes=MediaType.APPLICATION_JSON_VALUE)
+	
+	@PostMapping(value ="/login",consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Object> getMemberByUsername(@RequestBody Member m)
 	{
 		return ms.validate(m);
-		
 	}
 	
 }
