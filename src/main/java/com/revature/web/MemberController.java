@@ -1,9 +1,9 @@
 package com.revature.web;
 
-
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,16 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.Service.MemberServices;
+import com.revature.aspect.LoggingAspect;
 import com.revature.model.Member;
 
-@CrossOrigin(origins="/**")
+@CrossOrigin
 @RestController
 @RequestMapping(value="/Api")
 public class MemberController
 {
-	
 	private MemberServices ms;
-	
+
+	private static Logger LOGY = LogManager.getLogger(MemberController.class);
+
 	@Autowired
 	public void setMs(MemberServices ms)
 	{
@@ -37,20 +39,7 @@ public class MemberController
 	@PostMapping(value ="/login",consumes=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Object> getMemberByUsername(@RequestBody Member m)
 	{
+		LOGY.info("MemberController: getMemberByUsername entered");
 		return ms.validate(m);
 	}
-	
-	@RequestMapping(value="/**", method = RequestMethod.OPTIONS)
-	public @ResponseBody ResponseEntity<Object> handle()
-	{
-		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
-	}
-	
-	/*
-	@PostMapping(value="/createMember")
-	public @ResponseBody ResponseEntity<Object> createMember(@RequestBody Member m)
-	{
-		return ms.createUser();
-	}
-	*/
 }
