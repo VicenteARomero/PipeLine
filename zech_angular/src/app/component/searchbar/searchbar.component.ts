@@ -1,6 +1,7 @@
 import { Component, HostListener, ViewChild, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Item } from 'src/app/interface/item';
 
 
 
@@ -29,7 +30,10 @@ export class SearchbarComponent implements OnInit {
     }
 
   ngOnInit() {}
- 
+  
+  loadItemPage(clickedItem: Item){
+    location.href = 'https://www.crunchyroll.com/home'
+  }
 
 
 }

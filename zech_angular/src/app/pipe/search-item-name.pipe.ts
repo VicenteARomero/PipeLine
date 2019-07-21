@@ -7,7 +7,7 @@ import { Item } from '../interface/item';
 export class SearchItemNamePipe implements PipeTransform {
 
   transform(items: Item [], itemName : string) {
-    if(itemName){
+    if(itemName && itemName.length > 1){
       return this.isSimilar(items, itemName);
     }
   }
