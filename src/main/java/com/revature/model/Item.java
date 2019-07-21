@@ -1,71 +1,46 @@
 package com.revature.model;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+@Entity
+@Table(name = "item", schema = "proj2")
 public class Item
 {
-	
+	@Id
+	@Column(name = "item_id")
 	private int id;
+	@Column(name = "item_minPrice")
 	private double minPrice;
+	@Column(name = "item_timeStamp")
 	private long timeStamp;
-	private int memberId;
 	
-	public Item()
-	{
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Item(int id, double minPrice, long timeStamp, int memberId)
-	{
-		super();
-		this.id = id;
-		this.minPrice = minPrice;
-		this.timeStamp = timeStamp;
-		this.memberId = memberId;
-	}
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
-	public void setId(int id)
-	{
+	public void setId(int id) {
 		this.id = id;
 	}
-	public double getMinPrice()
-	{
+	public double getMinPrice() {
 		return minPrice;
 	}
-	public void setMinPrice(double minPrice)
-	{
+	public void setMinPrice(double minPrice) {
 		this.minPrice = minPrice;
 	}
-	public long getTimeStamp()
-	{
+	public long getTimeStamp() {
 		return timeStamp;
 	}
-	public void setTimeStamp(long timeStamp)
-	{
+	public void setTimeStamp(long timeStamp) {
 		this.timeStamp = timeStamp;
 	}
-	public int getMemberId()
-	{
-		return memberId;
-	}
-	public void setMemberId(int memberId)
-	{
-		this.memberId = memberId;
-	}
 	@Override
-	public String toString()
-	{
-		return "Item [id=" + id + ", minPrice=" + minPrice + ", timeStamp=" + timeStamp + ", memberId=" + memberId
-				+ "]";
-	}
-	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + memberId;
 		long temp;
 		temp = Double.doubleToLongBits(minPrice);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -73,8 +48,7 @@ public class Item
 		return result;
 	}
 	@Override
-	public boolean equals(Object obj)
-	{
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -84,12 +58,26 @@ public class Item
 		Item other = (Item) obj;
 		if (id != other.id)
 			return false;
-		if (memberId != other.memberId)
-			return false;
 		if (Double.doubleToLongBits(minPrice) != Double.doubleToLongBits(other.minPrice))
 			return false;
 		if (timeStamp != other.timeStamp)
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", minPrice=" + minPrice + ", timeStamp=" + timeStamp + "]";
+	}
+	public Item(int id, double minPrice, long timeStamp) {
+		super();
+		this.id = id;
+		this.minPrice = minPrice;
+		this.timeStamp = timeStamp;
+	}
+	public Item() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+		
 }
