@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import com.revature.Service.MemberServices;
 import com.revature.model.Member;
 import com.revature.repository.MemberRepo;
+import com.revature.util.SessionFactory;
 
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass=true)
@@ -26,5 +27,4 @@ public class AppConfiguration
 	{
 		return new MemberServices(new MemberRepo());
 	}
-	
 }

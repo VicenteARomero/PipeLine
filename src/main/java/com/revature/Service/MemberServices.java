@@ -38,9 +38,13 @@ public class MemberServices
 	//this method validates login
 	public ResponseEntity<Object> validate(Member m)
 	{
+		//getDataList();
 		
 		if(m.getUsername().equals("super2") && m.getPassword().equals("pass"))
 		{
+			m.setId(1);
+			m.setServerName("Hellscream");
+			m.setRegion("US");
 			return new ResponseEntity<Object>(m,HttpStatus.OK);
 		}
 		else 
