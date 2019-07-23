@@ -30,22 +30,16 @@ public class MemberServices
 		this.mr=mr;
 	}
 	
-	public void setMr(MemberRepo mr)
-	{
-		this.mr=mr;
-	}
+	
 	
 	//this method validates login
 	public ResponseEntity<Object> validate(Member m)
-	{
-		//getDataList();
-		
-		if(m.getUsername().equals("super2") && m.getPassword().equals("pass"))
+	{		
+		Member testValue = mr.getMemberByUsername(m.getUsername());
+		if(m!=null && testValue!=null && m.getPassword().equals(testValue.getPassword()))
 		{
-			m.setId(1);
-			m.setServerName("Hellscream");
-			m.setRegion("US");
-			return new ResponseEntity<Object>(m,HttpStatus.OK);
+			
+			return new ResponseEntity<Object>(testValue,HttpStatus.OK);
 		}
 		else 
 		{

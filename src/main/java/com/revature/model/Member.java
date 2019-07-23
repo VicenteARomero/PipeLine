@@ -5,14 +5,12 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "member", schema = "proj2")
+@Table(name = "members", schema = "proj2")
 public class Member
 {
 	@Id
@@ -26,13 +24,17 @@ public class Member
 	private String serverName;
 	@Column(name = "region")
 	private String region;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "m")
+	private List<Item> items;
 	
 	public Member()
 	{
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
+	
 	public Member(int id, String username, String password, String serverName, String region)
 	{
 		super();
@@ -41,6 +43,17 @@ public class Member
 		this.password = password;
 		this.serverName = serverName;
 		this.region = region;
+	}
+
+	public Member(int id, String username, String password, String serverName, String region, List<Item> items)
+	{
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.serverName = serverName;
+		this.region = region;
+		this.items = items;
 	}
 
 	public int getId()
@@ -93,12 +106,23 @@ public class Member
 		this.region = region;
 	}
 
+	public List<Item> getItems()
+	{
+		return items;
+	}
+
+	public void setItems(List<Item> items)
+	{
+		this.items = items;
+	}
+
 	@Override
 	public int hashCode()
 	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
+		result = prime * result + ((items == null) ? 0 : items.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((region == null) ? 0 : region.hashCode());
 		result = prime * result + ((serverName == null) ? 0 : serverName.hashCode());
@@ -117,6 +141,12 @@ public class Member
 			return false;
 		Member other = (Member) obj;
 		if (id != other.id)
+			return false;
+		if (items == null)
+		{
+			if (other.items != null)
+				return false;
+		} else if (!items.equals(other.items))
 			return false;
 		if (password == null)
 		{
@@ -149,9 +179,7 @@ public class Member
 	public String toString()
 	{
 		return "Member [id=" + id + ", username=" + username + ", password=" + password + ", serverName=" + serverName
-				+ ", region=" + region + "]";
+				+ ", region=" + region + ", items=" + items + "]";
 	}
-	
-	
 	
 }

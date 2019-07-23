@@ -14,6 +14,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import com.revature.model.Item;
 import com.revature.model.Member;
 import com.revature.util.SessionFactory;
 
@@ -40,32 +41,12 @@ public class MemberRepo
 			tx.commit();
 		}catch(HibernateException e) {
 			e.printStackTrace();
+			tx.rollback();
 		}finally {
 			s.close();
 		}
 		
 		return u;
-	}
-
-	
-	
-	public List<Member> getAllMembers() {
-		List<Member> member = new ArrayList();
-		Session s = null;
-		Transaction tx=null;
-		
-		try {
-			s = SessionFactory.getSession();
-			tx = s.beginTransaction();
-			member = s.createQuery("FROM Member", Member.class).getResultList();
-			tx.commit();
-		}catch(HibernateException e) {
-			e.printStackTrace();
-			tx.rollback();
-		}finally {
-			s.close();
-		}
-		return member;
 	}
 
 	
@@ -90,6 +71,30 @@ public class MemberRepo
 			s.close();
 		}
 	}
+	
+	public void insertItem(Item i)
+	{
+		Session s = null;
+		Transaction tx = null;
+		try 
+		{
+			s=SessionFactory.getSession();
+			tx=s.beginTransaction();
+			s.save(i);
+			tx.commit();
+		}
+		catch (HibernateException e)
+		{
+			e.printStackTrace();
+			tx.rollback();
+		}
+		finally
+		{
+			s.close();
+		}
+	}
+	
+	
 	
 	public Member getMemberById(int id) {
 		Member m = null;
