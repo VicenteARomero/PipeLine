@@ -54,6 +54,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { SearchbarComponent } from './component/searchbar/searchbar.component';
+import { SearchItemNamePipe } from './pipe/search-item-name.pipe';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { MatTreeModule } from '@angular/material/tree';
     PageComponent,
     LoginComponent,
     NavbarComponent,
-    loginpop
+    loginpop,
+    SearchbarComponent,
+    SearchItemNamePipe,
 
   ],
   entryComponents: [loginpop],
@@ -119,6 +123,7 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTreeModule,
     PortalModule,
     ScrollingModule,
+    
   ],
   providers: [global,],
   bootstrap: [AppComponent]
