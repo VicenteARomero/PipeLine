@@ -28,8 +28,7 @@ public class Member
 	private String serverName;
 	@Column(name = "region")
 	private String region;
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="id")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "member_id")
 	private List<Item> items;
 	
 	public Member()

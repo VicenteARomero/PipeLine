@@ -22,6 +22,8 @@ public class Item
 	private double minPrice;
 	@Column(name = "item_timeStamp")
 	private long timeStamp;
+	@JoinColumn(name="member_id")
+	private int member_id;
 
 	public Item()
 	{

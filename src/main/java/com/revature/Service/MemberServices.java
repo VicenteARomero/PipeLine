@@ -1,11 +1,5 @@
 package com.revature.Service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -18,13 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.revature.model.Files;
 import com.revature.model.Item;
 import com.revature.model.Member;
 import com.revature.repository.MemberRepo;
-import com.revature.web.MemberController;
-
-import net.sf.ehcache.search.parser.MValue.MShort;
 
 @Service("ms")
 public class MemberServices
@@ -68,40 +58,32 @@ public class MemberServices
 		}
 	}
 	
-	//this method creates user
-		public ResponseEntity<Object> returnItemList(Member m)
-		{		
-			if(m!=null)
-			{
-				Member x = mr.getMemberById(m.getId());
-				
-				return new ResponseEntity<Object>(HttpStatus.OK);
-			}
-			else 
-			{
-				return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
-			}
-		}
-		
-		//this method creates user
-				public ResponseEntity<Object> populateItemList(Member m)
-				{		
-					if(m!=null && (m.getItems() != null))
-					{
-						Member x =null;
-						
-						for (Item item: m.getItems())
-						{
-							mr.insertItem(item);
-						}						
-						return new ResponseEntity<Object>(HttpStatus.OK);
+	public ResponseEntity<Object> returnItemList(Member m)
+	{
+		if (m != null)
+		{
+			Member x = mr.getMemberById(m.getId());
 
-					}
-					else 
-					{
-						return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
-					}
-				}
+			return new ResponseEntity<Object>(x,HttpStatus.OK);
+		} else
+		{
+			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+		}
+	}
+		
+	//Inserting item
+	public ResponseEntity<Object> insertItem(Item i)
+	{
+		if (i != null)
+		{
+			mr.insertItem(i);
+			return new ResponseEntity<Object>(HttpStatus.OK);
+
+		} else
+		{
+			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+		}
+	}
 				
 		
 		

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.Service.MemberServices;
+import com.revature.model.Item;
 import com.revature.model.Member;
 
 @CrossOrigin
@@ -48,7 +49,7 @@ public class MemberController
 
 	// return item list
 	@PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<Object> getMemberbyId(@RequestBody Member m)
+	public @ResponseBody ResponseEntity<Object> getFavorites(@RequestBody Member m)
 	{
 
 		return ms.returnItemList(m);
@@ -56,11 +57,11 @@ public class MemberController
 	}
 
 	// populates item
-	@PostMapping(value = "/makeList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<Object> populateItemList(@RequestBody Member m)
+	@PostMapping(value = "/addFavorite", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Object> populateItemList(@RequestBody Item i)
 	{
 
-		return ms.populateItemList(m);
+		return ms.insertItem(i);
 
 	}
 
