@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 
+declare var $WowheadPower: any
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
@@ -8,15 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageComponent implements OnInit {
 itemid = 2828
-  
 
   constructor() { }
   
   ngOnInit() { 
-    
+    this.loadScript()
 
   }
+
+
   loadScript(){
-this.itemid = 163223
+
+
+  
+    $WowheadPower.refreshLinks();
+   
   }
+  
 }

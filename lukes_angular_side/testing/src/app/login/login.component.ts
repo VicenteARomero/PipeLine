@@ -21,7 +21,10 @@ User = {
   username : null,
   password : null
 }
-url :string ='http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/PlusUltraApi/validate'
+test2url:string ='http://localhost:8080/wowapi/'
+testurl: string ='http://localhost:8080/TestPiple/Api/login'
+url :string ='http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/Api/login'
+  badlogin: boolean;
   constructor(private passedVar: global,
               private http : HttpClient) { }
 
@@ -33,9 +36,16 @@ url :string ='http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/Tes
     console.log(this.User)
     this.http.post<User[]>( this.url, this.User, httpOptions).subscribe(
       data=>{ console.log(data),
-    this.passedVar.logged= !this.passedVar.logged},
+    this.passedVar.logged= !this.passedVar.logged
+  },
 
-    error=> console.log(error) )
+    error=> {console.log(error),this.badlogin=true} )
     
+  }
+  login2(){
+    this.http.get(this.test2url).subscribe(
+      data=>{console.log(data)},
+      error=> console.log(error) 
+    )
   }
 }

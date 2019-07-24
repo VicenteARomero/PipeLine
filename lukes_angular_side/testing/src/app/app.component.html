@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
- <app-login *ngIf="passedVar.logged"></app-login>
-<app-page></app-page>
 
+ <app-login></app-login>
+<app-page *ngIf="!passedVar.logged"></app-page>
+<a  href="#" data-wowhead="item=2828">[test]</a>
 <router-outlet></router-outlet>
