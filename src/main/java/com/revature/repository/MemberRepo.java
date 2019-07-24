@@ -48,7 +48,7 @@ public class MemberRepo
 		
 		return u;
 	}
-
+	
 	
 	public void insertMember(Member m)
 	{
@@ -94,8 +94,6 @@ public class MemberRepo
 		}
 	}
 	
-	
-	
 	public Member getMemberById(int id) {
 		Member m = null;
 		Session s = null;
@@ -115,4 +113,5 @@ public class MemberRepo
 		}
 		return m;
 	}
+	
 }

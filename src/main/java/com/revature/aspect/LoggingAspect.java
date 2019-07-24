@@ -10,12 +10,11 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-@Component
 @Aspect
 public class LoggingAspect
 {
 	private static Logger LOGY = LogManager.getLogger(LoggingAspect.class);
-	
+	/*
 	@Pointcut("execution(public * *(..))")
 	public void logAll() 
 	{
@@ -39,6 +38,6 @@ public class LoggingAspect
 	}
 
 
-	
+	*/
 	
 }

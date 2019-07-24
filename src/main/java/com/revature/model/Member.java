@@ -5,7 +5,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,6 +18,7 @@ public class Member
 {
 	@Id
 	@Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(name = "username")
 	private String username;
@@ -24,7 +28,8 @@ public class Member
 	private String serverName;
 	@Column(name = "region")
 	private String region;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "m")
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name="id")
 	private List<Item> items;
 	
 	public Member()
@@ -33,7 +38,13 @@ public class Member
 		// TODO Auto-generated constructor stub
 	}
 	
-
+	public Member(String username, String password, String serverName, String region)
+	{
+		this.username = username;
+		this.password = password;
+		this.serverName = serverName;
+		this.region = region;
+	}
 	
 	public Member(int id, String username, String password, String serverName, String region)
 	{
@@ -45,16 +56,6 @@ public class Member
 		this.region = region;
 	}
 
-	public Member(int id, String username, String password, String serverName, String region, List<Item> items)
-	{
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.serverName = serverName;
-		this.region = region;
-		this.items = items;
-	}
 
 	public int getId()
 	{
@@ -179,7 +180,7 @@ public class Member
 	public String toString()
 	{
 		return "Member [id=" + id + ", username=" + username + ", password=" + password + ", serverName=" + serverName
-				+ ", region=" + region + ", items=" + items + "]";
+				+ ", region=" + region;
 	}
 	
 }

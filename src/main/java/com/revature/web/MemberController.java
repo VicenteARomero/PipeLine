@@ -17,7 +17,7 @@ import com.revature.model.Member;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/Api")
+@RequestMapping(value = "/Api")
 public class MemberController
 {
 	private MemberServices ms;
@@ -27,14 +27,41 @@ public class MemberController
 	@Autowired
 	public void setMs(MemberServices ms)
 	{
-		this.ms=ms;
+		this.ms = ms;
 	}
-	
-	//Validates Members login
-	@PostMapping(value ="/login",consumes=MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+
+	// Validates Members login
+	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Object> getMemberByUsername(@RequestBody Member m)
 	{
 		return ms.validate(m);
 	}
-	
+
+	// creates new user
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Object> insertMember(@RequestBody Member m)
+	{
+
+		return ms.createUser(m);
+
+	}
+
+	// return item list
+	@PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Object> getMemberbyId(@RequestBody Member m)
+	{
+
+		return ms.returnItemList(m);
+
+	}
+
+	// populates item
+	@PostMapping(value = "/makeList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Object> populateItemList(@RequestBody Member m)
+	{
+
+		return ms.populateItemList(m);
+
+	}
+
 }
