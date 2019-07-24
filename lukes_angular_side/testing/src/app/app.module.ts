@@ -56,6 +56,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { SearchbarComponent } from './component/searchbar/searchbar.component';
 import { SearchItemNamePipe } from './pipe/search-item-name.pipe';
+import { WishlistComponent } from './component/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { SearchItemNamePipe } from './pipe/search-item-name.pipe';
     loginpop,
     SearchbarComponent,
     SearchItemNamePipe,
+    WishlistComponent,
 
   ],
   entryComponents: [loginpop],
