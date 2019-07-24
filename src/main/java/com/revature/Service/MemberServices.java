@@ -1,5 +1,8 @@
 package com.revature.Service;
 
+import java.time.LocalTime;
+import java.util.Timer;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -90,10 +93,9 @@ public class MemberServices
 	//This method will trigger every hour and update a json file stored in the database
 	public ResponseEntity<Object> getDataList()
 	{
-	    final String uri = "https://us.api.blizzard.com/wow/auction/data/Arthas?locale=en_US&access_token=USuQn04JTvcGMKoND2mYjD4CmktCT7enNx"; 
+	    final String uri = "https://us.api.blizzard.com/wow/auction/data/Arthas?locale=en_US&access_token=USV70icV7w2Tl8DFasJMkM4pZLNS41UKjM"; 
 	    RestTemplate restTemplate = new RestTemplate();
 	    String result = restTemplate.getForObject(uri, String.class);
-	    System.out.println(result);
 	    
 	    JSONParser parse;
 	    JSONObject jobj; 
@@ -110,7 +112,10 @@ public class MemberServices
 			{
 				JSONObject jsonobj_1 = (JSONObject)jsonarr_1.get(i);
 				url = (String)jsonobj_1.get("url");
+				System.out.println(LocalTime.now());
 				itemList = restTemplate.getForObject(url, String.class);
+				System.out.println(LocalTime.now());
+
 			}
 			return new ResponseEntity<Object>(itemList,HttpStatus.OK);
 		} catch (ParseException e)
