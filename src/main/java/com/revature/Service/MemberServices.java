@@ -88,9 +88,9 @@ public class MemberServices
 		
 		
 	//This method will trigger every hour and update a json file stored in the database
-	private static void getDataList()
+	public ResponseEntity<Object> getDataList()
 	{
-	    final String uri = "https://us.api.blizzard.com/wow/auction/data/arthas?locale=en_US&access_token=USc0dB2Pb9yH8ucNlYpJL1anH2wo68EPO5"; 
+	    final String uri = "https://us.api.blizzard.com/wow/auction/data/Arthas?locale=en_US&access_token=USuQn04JTvcGMKoND2mYjD4CmktCT7enNx"; 
 	    RestTemplate restTemplate = new RestTemplate();
 	    String result = restTemplate.getForObject(uri, String.class);
 	    System.out.println(result);
@@ -105,20 +105,21 @@ public class MemberServices
 	    	parse = new JSONParser();
 			jobj = (JSONObject)parse.parse(result);
 			jsonarr_1 = (JSONArray) jobj.get("files");
+			String itemList=null;
 			for(int i=0;i<jsonarr_1.size();i++)
 			{
 				JSONObject jsonobj_1 = (JSONObject)jsonarr_1.get(i);
 				url = (String)jsonobj_1.get("url");
-				System.out.println(url);
-				String itemList = restTemplate.getForObject(url, String.class);
-			    System.out.println(itemList);
+				itemList = restTemplate.getForObject(url, String.class);
 			}
-			
+			return new ResponseEntity<Object>(itemList,HttpStatus.OK);
 		} catch (ParseException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+	    
+	    return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 	}
 	
 	

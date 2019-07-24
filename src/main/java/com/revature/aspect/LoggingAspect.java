@@ -10,11 +10,12 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+@Component
 @Aspect
 public class LoggingAspect
 {
 	private static Logger LOGY = LogManager.getLogger(LoggingAspect.class);
-	/*
+	
 	@Pointcut("execution(public * *(..))")
 	public void logAll() 
 	{
@@ -36,8 +37,5 @@ public class LoggingAspect
 	public void logAfterReturning(JoinPoint jp, Object returnedValue) {
 		LOGY.info("The " + jp.getSignature().getName() + " method was just completed and it returned " + returnedValue);
 	}
-
-
-	*/
 	
 }
