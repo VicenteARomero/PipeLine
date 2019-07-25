@@ -34,12 +34,12 @@ url :string ='http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/Tes
 
   login(){
     console.log(this.User)
-    this.http.post<User[]>( this.url, this.User, httpOptions).subscribe(
-      data=>{ console.log(data),
+    //this.http.post<User[]>( this.url, this.User, httpOptions).subscribe(
+     // data=>{ console.log(data),
     this.passedVar.logged= !this.passedVar.logged
-  },
+ // },
 
-    error=> {console.log(error),this.badlogin=true} )
+ //   error=> {console.log(error),this.badlogin=true} )
     
   }
   login2(){
@@ -49,3 +49,9 @@ url :string ='http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/Tes
     )
   }
 }
+   // this.http.get<files[]>(this.transurl,httpOptions).subscribe(
+    //  data=>
+    //  { this.returned = data
+    //    console.log(data)
+        
+    //})

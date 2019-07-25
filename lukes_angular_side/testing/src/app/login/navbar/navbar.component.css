@@ -1,0 +1,16 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  .example-container2{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container2 > * {
+    width: 100%;
+  }

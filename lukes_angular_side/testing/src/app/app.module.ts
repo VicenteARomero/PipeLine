@@ -54,6 +54,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { MyComponent } from './page/injectedRow';
 
 @NgModule({
   declarations: [
@@ -61,10 +62,12 @@ import { MatTreeModule } from '@angular/material/tree';
     PageComponent,
     LoginComponent,
     NavbarComponent,
-    loginpop
+    loginpop,
+    MyComponent
 
   ],
-  entryComponents: [loginpop],
+  entryComponents: [loginpop,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
