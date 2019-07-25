@@ -1,24 +1,12 @@
-<div class="container">
-    <div class="row">
-      <div class="col-md-10 mx-auto">
-        <div class="md-form">
-            <input type="text" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Item Name">
-        </div>
-      </div>
-    </div>
-    <table searchTable class="z-depth-1">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr style="cursor:pointer;" *ngFor="let el of (elements| searchItemName: searchText)"(click)="loadItemPage(el)"> 
-        <th scope="row">{{el.id}}</th>
-        <td class="red-text">{{el.name}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+  <form class="form">
+      <mat-form-field class="full-width">
+          <input type="text" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Item Name" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option style="cursor:pointer;" *ngFor="let el of (elements| searchItemName: searchText)"(click)="loadItemPage(el)" 
+              ng-class="poor:el.quality==0, common:el.quality==1,uncommon:el.quality==2,rare: el.quality==3,epic:el.quality==4,legendary:el.quality==5, .artifactel.quality==6" [value]="el.name">
+              [{{el.name}}]
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
   

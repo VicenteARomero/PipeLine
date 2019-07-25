@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/interface/item';
-import { HttpClient } from '@angular/common/http';
+import {  HttpHeaders, HttpClient } from '@angular/common/http';
+import { User } from 'src/app/login/Models/User';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'Application/json',
+    
+  })
+}
 @Component({
   selector: 'app-wishlist',
   templateUrl: './wishlist.component.html',
@@ -9,20 +16,43 @@ import { HttpClient } from '@angular/common/http';
 })
 export class WishlistComponent implements OnInit {
   //This will hold the user's wishlist
-  private list: any []
-
+  private list: Item []
+  //tells if the user's Item List is empty
+  isEmpty = false;
+  //the user
+  memeber: User = {
+    id:3,
+    username:"zeck",
+    password:'pass',
+    serverName:'Hyjal',
+    region:'US',
+    items:null
+  }
   //the endpoint
   endpoint="http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/Api/list"
 
   constructor(private http: HttpClient) {
-    this.http.get<[]>( this.endpoint).subscribe(
-      data=>{})
-   }
 
-  ngOnInit() {}
+    
+  }
+
+  ngOnInit() {
+    console.log(this.memeber)
+    this.http.post<User>( this.endpoint,this.memeber,httpOptions).subscribe(
+      data=>{
+        this.memeber = data;
+        this.list = data.items;
+        console.log(this.memeber)
+      })
+      if(this.list == null||this.list.length  ==0){
+        this.isEmpty = true
+      }
+  }
 
   loadItem(wish: Item){
-    
+    if(wish != null || wish != undefined){
+      
+    }
   }
 
 }

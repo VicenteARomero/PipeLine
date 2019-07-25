@@ -8,6 +8,7 @@ export class SearchItemNamePipe implements PipeTransform {
 
   transform(items: Item [], itemName : string) {
     if(itemName && itemName.length > 1){
+      console.log("Firing")
       return this.isSimilar(items, itemName);
     }
   }
