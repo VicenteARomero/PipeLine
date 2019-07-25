@@ -39,9 +39,12 @@ export class PageComponent implements OnInit {
 
   ngOnInit() {
 
-        console.log(this.route.snapshot.paramMap.getAll)
-  
-        //console.log(this.it.id +":"+ this.it.name)
+    this.it ={
+      id:+this.route.snapshot.paramMap.get('id'),
+      name:this.route.snapshot.paramMap.get('name'),
+      quality:+this.route.snapshot.paramMap.get('quality')
+    }  
+    console.log(this.it)
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
