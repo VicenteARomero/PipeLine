@@ -17,11 +17,11 @@ const httpOptions = {
 export class WishlistComponent implements OnInit {
   //This will hold the user's wishlist
   private list: Item []
-  //tells if the user's Item List is empty
-  isEmpty = false;
+ 
   //the user
+  ///Need to fix
   memeber: User = {
-    id:3,
+    id:4,
     username:"zeck",
     password:'pass',
     serverName:'Hyjal',
@@ -44,9 +44,6 @@ export class WishlistComponent implements OnInit {
         this.list = data.items;
         console.log(this.memeber)
       })
-      if(this.list == null||this.list.length  ==0){
-        this.isEmpty = true
-      }
   }
 
   loadItem(wish: Item){

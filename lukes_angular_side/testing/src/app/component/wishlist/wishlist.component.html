@@ -1,9 +1,8 @@
 <div class="container">
 <h1>Your WishList</h1>
 <mat-nav-list>
-    <p  *ngIf= "isEmpty">There is no Items in your List</p>
   <mat-list-item *ngFor="let wish of list" (click)="loadItem(wish)">
-     {{wish.name}}
+    {{wish.name}}
   </mat-list-item>
 </mat-nav-list>
 </div>
