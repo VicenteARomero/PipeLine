@@ -98,6 +98,20 @@ public class MemberServices
 			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 		}
 	}
+	
+	//removing item from database
+	public ResponseEntity<Object> removeFavoriteItem(Item x)
+	{
+		if(mr.getItem(x) !=null)
+		{
+			mr.deleteItem(x);
+			return new ResponseEntity<Object>(HttpStatus.OK);
+		}
+		else 
+		{
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+		}
+	}
 		
 	//This method will hit an external api and send it back as a json
 	public ResponseEntity<Object> getDataList()

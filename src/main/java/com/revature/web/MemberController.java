@@ -66,6 +66,12 @@ public class MemberController
 
 	}
 	
+	@PostMapping(value="/removeFavorite",consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Object> removeFavorite(@RequestBody Item x)
+	{
+		return ms.removeFavoriteItem(x);
+	}
+	
 	@GetMapping(value = "/ping",produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Object> pingOutsideApi()
 	{

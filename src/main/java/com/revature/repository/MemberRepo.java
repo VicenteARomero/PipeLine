@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.aspectj.weaver.bcel.UnwovenClassFileWithThirdPartyManagedBytecode.IByteCodeProvider;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -114,4 +115,43 @@ public class MemberRepo
 		}
 		return m;
 	}
+	
+	public void deleteItem(Item m) {
+		Session s = null;
+		Transaction tx = null;
+		
+		try {
+			s = SessionFactory.getSession();
+			tx = s.beginTransaction();
+			s.delete(m);
+			tx.commit();
+		}catch(HibernateException e) {
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+			s.close();
+		}
+	}
+	
+	public Item getItem(Item i)
+	{
+		Item x = null;
+		Session s = null;
+		Transaction tx=null;
+		try {
+			s = SessionFactory.getSession();
+			tx=s.beginTransaction();
+			x = s.get(Item.class, i.getId());
+			tx.commit();
+		}
+		catch(HibernateException e) 
+		{
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+			s.close();
+		}
+		return x;
+	}
+
 }
