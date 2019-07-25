@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent implements OnInit {
-
+  showFiller = false;
+  
   constructor() { }
 
   ngOnInit() {
+  }
+
+  loadItem(wish){
+    
   }
 
 }

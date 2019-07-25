@@ -1,1 +1,5 @@
-<p>wishlist works!</p>
+<mat-nav-list>
+  <mat-list-item *ngFor="let wish of wishlist" (click)="loadItem(wish)">
+     {{wish}}
+  </mat-list-item>
+</mat-nav-list>
