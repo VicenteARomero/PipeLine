@@ -23,23 +23,16 @@ export class WishlistComponent implements OnInit {
   //the user
   ///Need to fix
   memeber: User
-  //the endpoint
-  endpoint="http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/Api/list"
+  
 
-  constructor(private http: HttpClient, private route: Router, private curuser: global) {
+  constructor(private route: Router, private curuser: global) {
     this.memeber = curuser.loggeduser;
-    console.log(this.memeber.items.length)
-    
+    this.list = this.memeber.items
   }
 
   ngOnInit() {
-    console.log(this.memeber)
-    /*this.http.post<User>( this.endpoint,this.memeber,httpOptions).subscribe(
-      data=>{
-        this.memeber = data;
-        this.list = data.items;
-        console.log(this.memeber)
-      })*/
+
+
   }
 
   loadItem(wish: Item){
