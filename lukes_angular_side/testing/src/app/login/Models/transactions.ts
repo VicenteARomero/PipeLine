@@ -1,10 +1,11 @@
 export interface auctions{
+ 
     auc : number
     item : number
     owner : string
     ownerRealm : string
-    bid : number
-    buyout: number
+    bid : any
+    buyout: any
     quantity : number
     timeLeft:string
 
