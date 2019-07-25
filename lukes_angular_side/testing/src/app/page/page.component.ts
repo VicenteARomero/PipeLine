@@ -32,9 +32,6 @@ export class PageComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   
   constructor(private passedVar: global,private route: ActivatedRoute) {
-   
-
-  constructor(private passedVar: global, ) {
 
 
     // Assign the data to the data source for the table to render

@@ -27,8 +27,7 @@ export class SearchbarComponent implements OnInit {
 
   //grabs the json file and then loads it in the elements array
   //Which the html grabs and populates the table
-  constructor(private http: HttpClient, private route: Router) {
-    private passedVar:global) {
+  constructor(private http: HttpClient, private route: Router,private passedVar:global) {
     this.getJSON().subscribe(data => {
      this.elements = data;
       this.passedVar.itemlist = data
