@@ -1,7 +1,7 @@
 package com.revature.Service;
 
 import java.time.LocalTime;
-import java.util.Timer;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import com.revature.model.Item;
 import com.revature.model.Member;
 import com.revature.repository.MemberRepo;
@@ -35,36 +34,38 @@ public class MemberServices
 	
 	//this method validates login
 	public ResponseEntity<Object> validate(Member m)
-	{		
-		Member testValue = mr.getMemberByUsername(m.getUsername());
-		if(m!=null && testValue!=null && m.getPassword().equals(testValue.getPassword()))
+	{
+		List<Member> list = mr.getMemberByUsername(m);
+		if (!list.isEmpty())
 		{
-			
-			return new ResponseEntity<Object>(testValue,HttpStatus.OK);
+			Member testValue = list.get(0);
+			if (m != null && testValue != null && m.getPassword().equals(testValue.getPassword()))
+			{
+
+				return new ResponseEntity<Object>(testValue, HttpStatus.OK);
+			}
 		}
-		else 
-		{
-			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
-		}
+		return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 	}
+	
+	
 	//this method creates user
 	public ResponseEntity<Object> createUser(Member m)
-	{		
-		if(m!=null && validateText(m.getUsername()) && validateText(m.getPassword())) //ensures a valid string		
+	{
+		if (m != null && validateText(m.getUsername()) && validateText(m.getPassword())) // ensures a valid string
 		{
-			//Member temp =mr.getMemberByUsername(m.getUsername());		//checking for duplicates
-			//if(temp==null)
-			//{	
-				
+			List<Member> temp = null;
+			temp = mr.getMemberByUsername(m); // checking for duplicates
+			if (temp.isEmpty())
+			{
 				mr.insertMember(m);
 				return new ResponseEntity<Object>(HttpStatus.OK);
-			//}
-			//else {
-				//return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
-			//}
-			
-		}
-		else 
+			} 
+			else
+			{
+				return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+			}
+		} else
 		{
 			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 		}
@@ -97,8 +98,6 @@ public class MemberServices
 			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 		}
 	}
-				
-		
 		
 	//This method will hit an external api and send it back as a json
 	public ResponseEntity<Object> getDataList()

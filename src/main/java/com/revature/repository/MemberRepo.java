@@ -22,31 +22,32 @@ import com.revature.util.SessionFactory;
 public class MemberRepo
 {
 	
-	public Member getMemberByUsername(String username) {
+	public List <Member> getMemberByUsername(Member m) {
 		Member u = null;
 		Session s = null;
 		Transaction tx=null;
+		Query q=null;
+		List <Member> results=null;
 		
-		try {
-			s = SessionFactory.getSession();
+		try 
+		{
+			s=SessionFactory.getSession();
 			tx=s.beginTransaction();
-			//This CriteriaBuilder will help us narrow down our search by allowing
-			//us to add Restrictions to our query.
-			CriteriaBuilder cb = s.getCriteriaBuilder();
-			CriteriaQuery<Member> cq = cb.createQuery(Member.class);
-			Root<Member> root = cq.from(Member.class);
-			cq.select(root).where(cb.equal(root.get("username"), username));
-			Query<Member> q = s.createQuery(cq);
-			u = q.getSingleResult();
+			q=s.createQuery("FROM Member WHERE username = :username");
+			q.setParameter("username", m.getUsername());
+			results = q.list();
 			tx.commit();
-		}catch(HibernateException e) {
+		}
+		catch (HibernateException e)
+		{
 			e.printStackTrace();
 			tx.rollback();
-		}finally {
+		}
+		finally
+		{
 			s.close();
 		}
-		
-		return u;
+		return results;
 	}
 	
 	
@@ -113,5 +114,4 @@ public class MemberRepo
 		}
 		return m;
 	}
-	
 }
