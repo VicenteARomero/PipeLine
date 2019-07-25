@@ -50,10 +50,19 @@ public class MemberServices
 	//this method creates user
 	public ResponseEntity<Object> createUser(Member m)
 	{		
-		if(m!=null)
+		if(m!=null && validateText(m.getUsername()) && validateText(m.getPassword())) //ensures a valid string		
 		{
-			mr.insertMember(m);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			Member temp =mr.getMemberByUsername(m.getUsername());		//checking for duplicates
+			if(temp==null)
+			{	
+				
+				mr.insertMember(m);
+				return new ResponseEntity<Object>(HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+			}
+			
 		}
 		else 
 		{
@@ -61,6 +70,7 @@ public class MemberServices
 		}
 	}
 	
+	//Returns a member object with a populated list
 	public ResponseEntity<Object> returnItemList(Member m)
 	{
 		if (m != null)
@@ -90,7 +100,7 @@ public class MemberServices
 				
 		
 		
-	//This method will trigger every hour and update a json file stored in the database
+	//This method will hit an external api and send it back as a json
 	public ResponseEntity<Object> getDataList()
 	{
 	    final String uri = "https://us.api.blizzard.com/wow/auction/data/Arthas?locale=en_US&access_token=USV70icV7w2Tl8DFasJMkM4pZLNS41UKjM"; 
@@ -112,9 +122,9 @@ public class MemberServices
 			{
 				JSONObject jsonobj_1 = (JSONObject)jsonarr_1.get(i);
 				url = (String)jsonobj_1.get("url");
-				System.out.println(LocalTime.now());
+				LOGY.info(LocalTime.now());
 				itemList = restTemplate.getForObject(url, String.class);
-				System.out.println(LocalTime.now());
+				LOGY.info(LocalTime.now());
 
 			}
 			return new ResponseEntity<Object>(itemList,HttpStatus.OK);
@@ -127,6 +137,15 @@ public class MemberServices
 	    return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 	}
 	
-	
-	
+	public static boolean validateText(String s)
+	{
+		for(int i=0;i<s.length();i++)
+		{
+			if( !((s.charAt(i)>=65 && s.charAt(i)<=90) || (s.charAt(i)>=97 && s.charAt(i)<=122)))	//checks that only letters were entered in the string
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 }
