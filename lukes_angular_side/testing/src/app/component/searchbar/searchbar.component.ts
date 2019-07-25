@@ -5,6 +5,7 @@ import { Item } from 'src/app/interface/item';
 import {FormControl} from '@angular/forms';
 import { SearchItemNamePipe } from '../../pipe/search-item-name.pipe';
 import { Route, Router } from '@angular/router';
+import { global } from 'src/app/login/passedVar';
 
 
 
@@ -27,8 +28,11 @@ export class SearchbarComponent implements OnInit {
   //grabs the json file and then loads it in the elements array
   //Which the html grabs and populates the table
   constructor(private http: HttpClient, private route: Router) {
+    private passedVar:global) {
     this.getJSON().subscribe(data => {
      this.elements = data;
+      this.passedVar.itemlist = data
+      
     });
   }  
     //Get the Json of the ItemList
