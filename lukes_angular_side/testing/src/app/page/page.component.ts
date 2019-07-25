@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { global } from '../login/passedVar';
 import { auctions } from '../login/Models/transactions';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Item } from '../interface/item';
 export interface UserData {
   id: string;
   name: string;
@@ -22,11 +24,12 @@ const list:auctions[]=[
 export class PageComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'owner', 'color', 'buyout'];
   dataSource: MatTableDataSource<auctions>;
+  it: Item
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   
-  constructor(private passedVar: global,) {
+  constructor(private passedVar: global,private route: ActivatedRoute) {
    
 
     // Assign the data to the data source for the table to render
@@ -35,6 +38,11 @@ export class PageComponent implements OnInit {
   }
 
   ngOnInit() {
+
+        console.log(this.route.snapshot.paramMap.getAll)
+  
+        //console.log(this.it.id +":"+ this.it.name)
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     

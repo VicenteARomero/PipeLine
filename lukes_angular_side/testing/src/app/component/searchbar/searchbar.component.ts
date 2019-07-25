@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Item } from 'src/app/interface/item';
 import {FormControl} from '@angular/forms';
 import { SearchItemNamePipe } from '../../pipe/search-item-name.pipe';
+import { Route, Router } from '@angular/router';
 
 
 
@@ -25,7 +26,7 @@ export class SearchbarComponent implements OnInit {
 
   //grabs the json file and then loads it in the elements array
   //Which the html grabs and populates the table
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private route: Router) {
     this.getJSON().subscribe(data => {
      this.elements = data;
     });
@@ -39,7 +40,7 @@ export class SearchbarComponent implements OnInit {
   
   //When an item is clicked in the table will then load another component with item details
   loadItemPage(clickedItem: Item){
-    location.href = 'https://www.crunchyroll.com/'
+    this.route.navigate(['itempage', clickedItem]);
   }
 
 

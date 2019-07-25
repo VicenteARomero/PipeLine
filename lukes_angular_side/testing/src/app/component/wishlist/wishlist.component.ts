@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/interface/item';
 import {  HttpHeaders, HttpClient } from '@angular/common/http';
 import { User } from 'src/app/login/Models/User';
+import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -31,7 +32,7 @@ export class WishlistComponent implements OnInit {
   //the endpoint
   endpoint="http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/Api/list"
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private route: Router) {
 
     
   }
@@ -48,7 +49,7 @@ export class WishlistComponent implements OnInit {
 
   loadItem(wish: Item){
     if(wish != null || wish != undefined){
-      
+      this.route.navigate(['itempage', wish]);
     }
   }
 
