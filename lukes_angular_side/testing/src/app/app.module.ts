@@ -54,6 +54,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { MyComponent } from './page/injectedRow';
 import { SearchbarComponent } from './component/searchbar/searchbar.component';
 import { SearchItemNamePipe } from './pipe/search-item-name.pipe';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
@@ -65,12 +66,15 @@ import { WishlistComponent } from './component/wishlist/wishlist.component';
     LoginComponent,
     NavbarComponent,
     loginpop,
+    MyComponent
+    loginpop,
     SearchbarComponent,
     SearchItemNamePipe,
     WishlistComponent,
 
   ],
-  entryComponents: [loginpop],
+  entryComponents: [loginpop,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

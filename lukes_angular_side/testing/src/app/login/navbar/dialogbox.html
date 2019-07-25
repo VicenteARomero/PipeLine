@@ -1,19 +1,54 @@
-<h1 mat-dialog-title>Login </h1>
-<div mat-dialog-content>
-    <mat-form-field>
+<mat-tab-group dynamicHeight=true>
+    <mat-tab label="Login">
+<h3 mat-dialog-title>Login </h3>
+<mat-error *ngIf="badlogin">Incorrect login info</mat-error>
+<div mat-dialog-content class="example-container">
+    <mat-form-field  >
         
-        <input matInput placeholder="Enter your Username" [(ngModel)]="data.username">
+        <input matInput placeholder="Enter your Username"  [(ngModel)]="data.username" >
+        
         </mat-form-field>
-        <mat-form-field>
+        <br>
+        <mat-form-field >
         <input matInput placeholder="Enter your password" [(ngModel)]="data.password"[type]="hide ? 'text' : 'password'">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
+    
+       
     </mat-form-field>
-
 
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
-</div>
+    <button mat-button *ngIf="passedVar.logged" (click)="onNoClick()">No Thanks</button>
+    <button *ngIf='passedVar.logged' mat-button type="submit" (click)=login() [disabled]="flag">Login</button> 
+    <button *ngIf="!passedVar.logged" mat-button [mat-dialog-close]="data" cdkFocusInitial>Done</button>
+</div >
+<br>
+
+</mat-tab>
+
+<mat-tab *ngIf="passedVar.logged" label="Register"  >
+        <h3 mat-dialog-title>Register</h3>
+        <mat-error *ngIf="badlogin">Username Taken</mat-error>
+    <mat-form-field  class="example-container">
+        <input matInput placeholder="Enter your Username"  [(ngModel)]="data.username" >
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-container">
+        <input matInput placeholder="Enter your password" [(ngModel)]="data.password"[type]="hide ? 'text' : 'password'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    
+       
+    </mat-form-field>
+    <div mat-dialog-actions>
+            <button mat-button *ngIf="passedVar.logged" (click)="onNoClick()">No Thanks</button>
+            <button *ngIf='passedVar.logged' mat-button type="submit" (click)=register() [disabled]="flag">Register</button> 
+            <button *ngIf="!passedVar.logged" mat-button [mat-dialog-close]="data" cdkFocusInitial>Done</button>
+        </div >
+        <br>
+  </mat-tab>
+
+</mat-tab-group>
