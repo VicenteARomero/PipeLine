@@ -66,8 +66,7 @@ import { WishlistComponent } from './component/wishlist/wishlist.component';
     LoginComponent,
     NavbarComponent,
     loginpop,
-    MyComponent
-    loginpop,
+    MyComponent,
     SearchbarComponent,
     SearchItemNamePipe,
     WishlistComponent,
