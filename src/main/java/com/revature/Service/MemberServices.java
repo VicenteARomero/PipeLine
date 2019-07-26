@@ -116,7 +116,7 @@ public class MemberServices
 	//This method will hit an external api and send it back as a json
 	public ResponseEntity<Object> getDataList()
 	{
-	    final String uri = "https://us.api.blizzard.com/wow/auction/data/Arthas?locale=en_US&access_token=USV70icV7w2Tl8DFasJMkM4pZLNS41UKjM"; 
+	    final String uri = "https://us.api.blizzard.com/wow/auction/data/arthas?locale=en_US&access_token=UST0Oq90jcZ9EXI7YL6xLUszGcvrbZWj0s"; 
 	    RestTemplate restTemplate = new RestTemplate();
 	    String result = restTemplate.getForObject(uri, String.class);
 	    
