@@ -79,6 +79,7 @@ export class loginpop {
         this.passedVar.loggeduser = data
         console.log(this.passedVar.loggeduser),
         this.passedVar.logged = !this.passedVar.logged
+        this.badlogin= false
       }, error => {
         console.log(error)
         this.badlogin = true
@@ -102,6 +103,10 @@ export class loginpop {
         this.badlogin = true
         this.delay(500).then(any => this.flag = !this.flag) //jank way to stop inputs spam, only unlocks after 500 ms
       })
+  }
+  resetLoginBoolean(){
+    console.log("Fired");
+    this.badlogin = false
   }
   
 }

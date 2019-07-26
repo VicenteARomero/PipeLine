@@ -1,4 +1,4 @@
-<mat-tab-group dynamicHeight=true>
+<mat-tab-group dynamicHeight=true (click)="resetLoginBoolean">
     <mat-tab label="Login">
 <h3 mat-dialog-title>Login </h3>
 <mat-error *ngIf="badlogin">Incorrect login info</mat-error>
@@ -28,7 +28,7 @@
 
 </mat-tab>
 
-<mat-tab *ngIf="passedVar.logged" label="Register"  >
+<mat-tab *ngIf="passedVar.logged" label="Register">
         <h3 mat-dialog-title>Register</h3>
         <mat-error *ngIf="badlogin">Username Taken</mat-error>
     <mat-form-field  class="example-container">

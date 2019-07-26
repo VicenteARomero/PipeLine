@@ -52,13 +52,16 @@ export class WishlistComponent implements OnInit {
     
       this.http.post<any>(this.url+"removeFavorite", send, httpOptions).subscribe(
         data => {
+          
           console.log(data)
+
           
         }, error => {
           console.log(error)
           
           
         })
+
     }
 refreshh(){
   this.curuser.loggeduser.id
