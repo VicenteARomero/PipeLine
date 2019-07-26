@@ -44,6 +44,7 @@ export class SearchbarComponent implements OnInit {
   //When an item is clicked in the table will then load another component with item details
   loadItemPage(clickedItem: Item){
     this.route.navigate(['itempage', clickedItem]);
+    
   }
 
 

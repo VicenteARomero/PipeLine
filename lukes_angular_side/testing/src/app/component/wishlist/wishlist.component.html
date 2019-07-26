@@ -1,8 +1,12 @@
-<div class="container">
-<h1>Your WishList</h1>
+
+<div class="jumbotron">
+<h1>Your WishList</h1>  <!--maybe one day<button (click)='refreshh()' mat-raised-button color="warn">Refresh</button>-->
 <mat-nav-list>
-  <mat-list-item *ngFor="let wish of list" (click)="loadItem(wish)">
-    {{wish.name}}
+  <mat-list-item *ngFor="let wish of list" >
+      <button (click)="loadItem(wish)" mat-mini-fab color="accent">Go</button>
+    <button (click)='df(wish.id)' mat-raised-button color="warn">REMOVE</button>
+    {{wish.name}} 
   </mat-list-item>
 </mat-nav-list>
 </div>
+

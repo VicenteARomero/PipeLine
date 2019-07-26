@@ -4,6 +4,8 @@ import { global } from '../login/passedVar';
 import { auctions } from '../login/Models/transactions';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Item } from '../interface/item';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../login/Models/User';
 export interface UserData {
   id: string;
   name: string;
@@ -11,56 +13,62 @@ export interface UserData {
   color: string;
 }
 declare var $WowheadPower: any
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    
+  })
+}
 
-const list: auctions[] = [
-  { auc: 2046327290, item: 159535, owner: "Sekcmexi", ownerRealm: "Arthas", bid: 222259532, buyout: 2300000, quantity: 1, timeLeft: "VERY_LONG", },
-  { auc: 2047441418, item: 24588, owner: "Lowkeygreens", ownerRealm: "Arthas", bid: 32516400, buyout: 32516400, quantity: 4, timeLeft: "VERY_LONG", },
-  { auc: 2047441418, item: 55419, owner: "Lowkeygreens", ownerRealm: "Arthas", bid: 825216400, buyout: 32516400, quantity: 4, timeLeft: "VERY_LONG", },
-  { auc: 2047441418, item: 168642, owner: "Lowkeygreens", ownerRealm: "Arthas", bid: 9016400, buyout: 32516400, quantity: 4, timeLeft: "VERY_LONG", }
-]
 @Component({
   selector: 'app-page',
   styleUrls: ['page.component.css'],
   templateUrl: 'page.component.html',
 })
 export class PageComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'quantity', 'owner', 'bid', 'buyout', 'timeLeft','name'];
+  displayedColumns: string[] = ['name','id', 'quantity', 'owner', 'bid', 'buyout', 'timeLeft',];
   dataSource: MatTableDataSource<auctions>;
   it: Item
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  
-  constructor(private passedVar: global,private route: ActivatedRoute) {
-
-
-    // Assign the data to the data source for the table to render
-    for (let index = 0; index < list.length; index++) {
-      console.log(list[0].bid)
-      list[index].buyout = (list[index].buyout / 1000)
-      list[index].buyout = list[index].buyout.toFixed(0)
-      list[index].bid = (list[index].bid / 1000)
-      list[index].bid = list[index].bid.toFixed(0)
-      list[index].timeLeft = (list[index].timeLeft.replace("_", " "))
-      list[index].ownerRealm = this.checkjson(list[index].item)
-    }
-   
-    this.dataSource = new MatTableDataSource(list);
-
+  url: string = 'http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/Api/'
+  list: auctions[];
+  constructor(private passedVar: global,
+    private route: ActivatedRoute,
+    private http: HttpClient,) {
+ 
+    this.dataSource = new MatTableDataSource(this.list);
   }
 
   ngOnInit() {
-
+    this.getlist()
+    this.list = this.passedVar.auctions
     this.it ={
       id:+this.route.snapshot.paramMap.get('id'),
       name:this.route.snapshot.paramMap.get('name'),
       quality:+this.route.snapshot.paramMap.get('quality')
+      
     }  
+    for (let index = 0; index < this.list.length; index++) {
+      this.list[index].ownerRealm = this.checkjson(this.list[index].item)
+    }
+
+    // Assign the data to the data source for the table to render
+    for (let index = 0; index < this.list.length; index++) {
+      console.log(this.list[0].bid)
+      this.list[index].buyout = (this.list[index].buyout / 1000)
+      this.list[index].buyout = this.list[index].buyout.toFixed(0)
+      this.list[index].bid = (this.list[index].bid / 1000)
+      this.list[index].bid = this.list[index].bid.toFixed(0)
+      this.list[index].timeLeft = (this.list[index].timeLeft.replace("_", " "))
+    
+    }
     console.log(this.it)
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
+    
   }
 
   applyFilter(filterValue: string) {
@@ -71,12 +79,44 @@ export class PageComponent implements OnInit {
   }
   loadScript() {
     $WowheadPower.refreshLinks()
-   
+    this.applyFilter(this.it.name)
   }
   checkjson(itemnumber:number){
-    console.log(list[0].bid+"fun")
     return this.passedVar.itemlist.find(x=>x.id==itemnumber).name
-    
   }
-}
+  addf(serialNumber:number,name:string,member_id:number){
+    var send = { 
+    serialNumber : serialNumber,
+    name :name,
+    member_id:member_id}
+    console.log(send)
+    
+      this.http.post(this.url+"addFavorite", send, httpOptions).subscribe(
+        data => {
+          console.log(data)
+          
+        }, error => {
+          console.log(error)
+          
+          
+        })
+    }
+    getlist(){
+      this.http.get<any>(this.url+"ping",).subscribe(
+        data => {
+          this.passedVar.itemlist= data
+          console.log(data)
+          this.passedVar.auctions=data.auctions
+          console.log(this.passedVar.auctions)
+          
+        }, error => {
+          console.log(error)
+          
+          
+        })
+    }
+ 
+  }
+  
+
 

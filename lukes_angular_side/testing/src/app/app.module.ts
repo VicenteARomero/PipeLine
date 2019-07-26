@@ -58,6 +58,7 @@ import { MyComponent } from './page/injectedRow';
 import { SearchbarComponent } from './component/searchbar/searchbar.component';
 import { SearchItemNamePipe } from './pipe/search-item-name.pipe';
 import { WishlistComponent } from './component/wishlist/wishlist.component';
+import { WelcomeComponent } from './component/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { WishlistComponent } from './component/wishlist/wishlist.component';
     SearchbarComponent,
     SearchItemNamePipe,
     WishlistComponent,
+    WelcomeComponent,
 
   ],
   entryComponents: [loginpop,

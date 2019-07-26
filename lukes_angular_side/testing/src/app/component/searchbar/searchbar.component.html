@@ -1,6 +1,6 @@
   <form class="form">
       <mat-form-field class="full-width">
-          <input type="text" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Item Name" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <input type="text" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Item Name" matInput  [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option style="cursor:pointer;" *ngFor="let el of (elements| searchItemName: searchText)"(click)="loadItemPage(el)" 
               ng-class="poor:el.quality==0, common:el.quality==1,uncommon:el.quality==2,rare: el.quality==3,epic:el.quality==4,legendary:el.quality==5, .artifactel.quality==6" [value]="el.name">
