@@ -19,12 +19,15 @@ export class AppComponent {
     ,private router :Router,
     private http: HttpClient,
     private dat:LoadlistService){   
-   
+   if(this.passedVar.processesed){
       this.dat.getlist().subscribe(
         data=>{
           passedVar.auctions=data.auctions
+          passedVar.datadone = true
         }
       )
+   }
+      this.passedVar.processesed = false
       
      /*
      passedVar.auctions = 

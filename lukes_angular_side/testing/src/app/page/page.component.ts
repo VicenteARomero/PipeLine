@@ -36,6 +36,7 @@ export class PageComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   url: string = 'http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/Api/'
   list: auctions[];
+  hold: string;
   constructor(private passedVar: global,
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -46,7 +47,7 @@ export class PageComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.passedVar.auctions)
+   
     
     this.it ={
       id:+this.route.snapshot.paramMap.get('id'),
@@ -54,22 +55,21 @@ export class PageComponent implements OnInit {
       quality:+this.route.snapshot.paramMap.get('quality')
       
     }  
-    for (let index = 0; index < this.list.length; index++) {
-     // this.list[index].ownerRealm = this.checkjson(this.list[index].item)
-    }
+  
 
     // Assign the data to the data source for the table to render
+    if(this.passedVar.notprocessesed){
     for (let index = 0; index < this.list.length; index++) {
-      console.log(this.list[0].bid)
       this.list[index].buyout = (this.list[index].buyout / 1000)
       this.list[index].buyout = this.list[index].buyout.toFixed(0)
       this.list[index].bid = (this.list[index].bid / 1000)
       this.list[index].bid = this.list[index].bid.toFixed(0)
       this.list[index].timeLeft = (this.list[index].timeLeft.replace("_", " "))
-    
+      this.list[index].ownerRealm = this.checkjson(this.list[index].item)
     }
-    console.log(this.it)
-    
+  }
+   
+    this.passedVar.notprocessesed = false
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     
@@ -86,14 +86,15 @@ export class PageComponent implements OnInit {
     this.applyFilter(this.it.name)
   }
   checkjson(itemnumber:number){
-    return this.passedVar.itemlist.find(x=>x.id==itemnumber).name
+   try{ this.hold = this.passedVar.itemlist.find(x=>x.id==itemnumber).name}
+   finally{return this.hold}
   }
   addf(serialNumber:number,name:string,member_id:number){
     var send = { 
     serialNumber : serialNumber,
     name :name,
     member_id:member_id}
-    console.log(send)
+    
     
       this.http.post(this.url+"addFavorite", send, httpOptions).subscribe(
         data => {

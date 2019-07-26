@@ -10,5 +10,8 @@ export class global{
     loggeduser:User
     itemlist:Item[] 
     auctions:auctions[]
+  processesed: boolean = true;
+  notprocessesed: boolean = true;
+  datadone: boolean = false;
     
 }
