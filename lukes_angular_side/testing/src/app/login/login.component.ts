@@ -17,10 +17,10 @@ const httpOptions = {
 })
 
 export class LoginComponent implements OnInit {
-User = {
-  username : null,
-  password : null
-}
+  User = {
+    username : null,
+    password : null
+  }
 test2url:string ='http://localhost:8080/wowapi/'
 testurl: string ='http://localhost:8080/TestPiple/Api/login'
 url :string ='http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/Api/login'

@@ -14,3 +14,11 @@
   .example-container2 > * {
     width: 100%;
   }
+
+  .navbar-custom{
+    background-color: darkturquoise
+  }
+  .nav-link{
+    text-decoration-color: black
+
+  }

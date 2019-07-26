@@ -1,0 +1,12 @@
+
+<div class="jumbotron">
+<h1>Your WishList</h1>  <!--maybe one day<button (click)='refreshh()' mat-raised-button color="warn">Refresh</button>-->
+<mat-nav-list>
+  <mat-list-item *ngFor="let wish of curuser.loggeduser.items" >
+      <button (click)="loadItem(wish)" mat-mini-fab color="accent">Go</button>
+    <button (click)='df(wish.id)' mat-raised-button color="warn">REMOVE</button>
+    {{wish.name}} 
+  </mat-list-item>
+</mat-nav-list>
+</div>
+

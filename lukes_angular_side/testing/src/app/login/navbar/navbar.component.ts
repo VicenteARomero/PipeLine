@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { User } from '../Models/User';
 import { global } from '../passedVar';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RouterEvent, Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -54,12 +55,16 @@ export class loginpop {
 
   ngOnInit() {
   this.flag = false
+ 
   }
   constructor(
     private passedVar: global,
     public dialogRef: MatDialogRef<loginpop>,
     private http: HttpClient,
-    @Inject(MAT_DIALOG_DATA) public data: User) { }
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: User) {
+
+     }
   url: string = 'http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/Api/'
   onNoClick(): void {
     this.dialogRef.close();
@@ -74,6 +79,7 @@ export class loginpop {
         this.passedVar.loggeduser = data
         console.log(this.passedVar.loggeduser),
         this.passedVar.logged = !this.passedVar.logged
+        this.badlogin= false
       }, error => {
         console.log(error)
         this.badlogin = true
@@ -90,6 +96,7 @@ export class loginpop {
     this.http.post<User[]>(this.url+"create", this.data, httpOptions).subscribe(
       data => {
         console.log(data),
+        this.passedVar.loggeduser = data[0]
         this.passedVar.logged = !this.passedVar.logged
       }, error => {
         console.log(error)
@@ -97,4 +104,9 @@ export class loginpop {
         this.delay(500).then(any => this.flag = !this.flag) //jank way to stop inputs spam, only unlocks after 500 ms
       })
   }
+  resetLoginBoolean(){
+    console.log("Fired");
+    this.badlogin = false
+  }
+  
 }

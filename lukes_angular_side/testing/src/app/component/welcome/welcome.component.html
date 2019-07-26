@@ -1,0 +1,11 @@
+<div class=jumbotron>
+    Welcome!<br>
+    <div *ngIf='!passedVar.datadone'>
+    <mat-progress-spinner 
+        class="example-margin"
+        [color]="warn"
+        [mode]="indeterminate"
+>
+    </mat-progress-spinner>
+</div>
+</div>

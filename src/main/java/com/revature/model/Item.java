@@ -1,72 +1,97 @@
 package com.revature.model;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+@Entity
+@Table(name = "item", schema = "proj2")
 public class Item
 {
-	
+	@Id
+	@Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private double minPrice;
-	private long timeStamp;
-	private int memberId;
+	@Column(name="serialNumber")
+	private int serialNumber;
+	@Column(name = "item_Name")
+	private String name;
+	@JoinColumn(name="member_id")
+	private int member_id;
 	
-	public Item(int id, double minPrice, long timeStamp, int memberId)
+	public Item()
+	{
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Item(int id, int serialNumber, String name, int member_id)
 	{
 		super();
 		this.id = id;
-		this.minPrice = minPrice;
-		this.timeStamp = timeStamp;
-		this.memberId = memberId;
+		this.serialNumber = serialNumber;
+		this.name = name;
+		this.member_id = member_id;
 	}
+
 	public int getId()
 	{
 		return id;
 	}
+
 	public void setId(int id)
 	{
 		this.id = id;
 	}
-	public double getMinPrice()
+
+	public int getSerialNumber()
 	{
-		return minPrice;
+		return serialNumber;
 	}
-	public void setMinPrice(double minPrice)
+
+	public void setSerialNumber(int serialNumber)
 	{
-		this.minPrice = minPrice;
+		this.serialNumber = serialNumber;
 	}
-	public long getTimeStamp()
+
+	public String getName()
 	{
-		return timeStamp;
+		return name;
 	}
-	public void setTimeStamp(long timeStamp)
+
+	public void setName(String name)
 	{
-		this.timeStamp = timeStamp;
+		this.name = name;
 	}
-	public int getMemberId()
+
+	public int getMember_id()
 	{
-		return memberId;
+		return member_id;
 	}
-	public void setMemberId(int memberId)
+
+	public void setMember_id(int member_id)
 	{
-		this.memberId = memberId;
+		this.member_id = member_id;
 	}
-	@Override
-	public String toString()
-	{
-		return "Item [id=" + id + ", minPrice=" + minPrice + ", timeStamp=" + timeStamp + ", memberId=" + memberId
-				+ "]";
-	}
+
 	@Override
 	public int hashCode()
 	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + memberId;
-		long temp;
-		temp = Double.doubleToLongBits(minPrice);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + (int) (timeStamp ^ (timeStamp >>> 32));
+		result = prime * result + member_id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + serialNumber;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -79,12 +104,24 @@ public class Item
 		Item other = (Item) obj;
 		if (id != other.id)
 			return false;
-		if (memberId != other.memberId)
+		if (member_id != other.member_id)
 			return false;
-		if (Double.doubleToLongBits(minPrice) != Double.doubleToLongBits(other.minPrice))
+		if (name == null)
+		{
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
 			return false;
-		if (timeStamp != other.timeStamp)
+		if (serialNumber != other.serialNumber)
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Item [id=" + id + ", serialNumber=" + serialNumber + ", name=" + name + ", member_id=" + member_id
+				+ "]";
+	}
+
 }

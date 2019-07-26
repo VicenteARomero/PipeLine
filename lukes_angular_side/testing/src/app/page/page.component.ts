@@ -2,6 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { global } from '../login/passedVar';
 import { auctions } from '../login/Models/transactions';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Item } from '../interface/item';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { LoadlistService } from '../service/loadlist.service';
+
 export interface UserData {
   id: string;
   name: string;
@@ -9,32 +15,61 @@ export interface UserData {
   color: string;
 }
 declare var $WowheadPower: any
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    
+  })
+}
 
-const list:auctions[]=[
-{auc:2046327290,item:159535,owner:"Sekcmexi",ownerRealm:"Arthas",bid:2259532,buyout:2300000,quantity:1,timeLeft:"VERY_LONG",},
-{auc:2047441418,item:24588,owner:"Lowkeygreens",ownerRealm:"Arthas",bid:32516400,buyout:32516400,quantity:4,timeLeft:"VERY_LONG",}
-]
 @Component({
   selector: 'app-page',
   styleUrls: ['page.component.css'],
   templateUrl: 'page.component.html',
 })
 export class PageComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'owner', 'color', 'buyout'];
+  displayedColumns: string[] = ['name','id', 'quantity', 'owner', 'bid', 'buyout', 'timeLeft',];
   dataSource: MatTableDataSource<auctions>;
+  it: Item
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  
-  constructor(private passedVar: global,) {
-   
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(list);
-    
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  url: string = 'http://ec2-18-191-249-103.us-east-2.compute.amazonaws.com:8088/TestPiple/Api/'
+  list: auctions[];
+  hold: string;
+  constructor(private passedVar: global,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private dat:LoadlistService) {
+ //this.dat.getlist().subscribe()
+ this.list = this.passedVar.auctions
+ this.dataSource = new MatTableDataSource(this.list);
   }
 
   ngOnInit() {
+   
+    
+    this.it ={
+      id:+this.route.snapshot.paramMap.get('id'),
+      name:this.route.snapshot.paramMap.get('name'),
+      quality:+this.route.snapshot.paramMap.get('quality')
+      
+    }  
+  
+
+    // Assign the data to the data source for the table to render
+    if(this.passedVar.notprocessesed){
+    for (let index = 0; index < this.list.length; index++) {
+      this.list[index].buyout = (this.list[index].buyout / 1000)
+      this.list[index].buyout = this.list[index].buyout.toFixed(0)
+      this.list[index].bid = (this.list[index].bid / 1000)
+      this.list[index].bid = this.list[index].bid.toFixed(0)
+      this.list[index].timeLeft = (this.list[index].timeLeft.replace("_", " "))
+      this.list[index].ownerRealm = this.checkjson(this.list[index].item)
+    }
+  }
+   
+    this.passedVar.notprocessesed = false
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     
@@ -42,14 +77,37 @@ export class PageComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-  loadScript(){
+  loadScript() {
     $WowheadPower.refreshLinks()
-    
+    this.applyFilter(this.it.name)
   }
-}
+  checkjson(itemnumber:number){
+   try{ this.hold = this.passedVar.itemlist.find(x=>x.id==itemnumber).name}
+   finally{return this.hold}
+  }
+  addf(serialNumber:number,name:string,member_id:number){
+    var send = { 
+    serialNumber : serialNumber,
+    name :name,
+    member_id:member_id}
+    
+    
+      this.http.post(this.url+"addFavorite", send, httpOptions).subscribe(
+        data => {
+          console.log(data)
+          
+        }, error => {
+          console.log(error)
+          
+          
+        })
+    }
+ 
+  }
+  
+
 

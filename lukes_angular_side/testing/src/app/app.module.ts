@@ -55,6 +55,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MyComponent } from './page/injectedRow';
+import { SearchbarComponent } from './component/searchbar/searchbar.component';
+import { SearchItemNamePipe } from './pipe/search-item-name.pipe';
+import { WishlistComponent } from './component/wishlist/wishlist.component';
+import { WelcomeComponent } from './component/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +67,11 @@ import { MyComponent } from './page/injectedRow';
     LoginComponent,
     NavbarComponent,
     loginpop,
-    MyComponent
+    MyComponent,
+    SearchbarComponent,
+    SearchItemNamePipe,
+    WishlistComponent,
+    WelcomeComponent,
 
   ],
   entryComponents: [loginpop,
@@ -122,6 +130,7 @@ import { MyComponent } from './page/injectedRow';
     MatTreeModule,
     PortalModule,
     ScrollingModule,
+    
   ],
   providers: [global,],
   bootstrap: [AppComponent]
