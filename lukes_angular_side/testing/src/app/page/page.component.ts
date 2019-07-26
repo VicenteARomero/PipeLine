@@ -5,7 +5,9 @@ import { auctions } from '../login/Models/transactions';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Item } from '../interface/item';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../login/Models/User';
+
+import { LoadlistService } from '../service/loadlist.service';
+
 export interface UserData {
   id: string;
   name: string;
@@ -36,14 +38,16 @@ export class PageComponent implements OnInit {
   list: auctions[];
   constructor(private passedVar: global,
     private route: ActivatedRoute,
-    private http: HttpClient,) {
- 
-    this.dataSource = new MatTableDataSource(this.list);
+    private http: HttpClient,
+    private dat:LoadlistService) {
+ //this.dat.getlist().subscribe()
+ this.list = this.passedVar.auctions
+ this.dataSource = new MatTableDataSource(this.list);
   }
 
   ngOnInit() {
-    this.getlist()
-    this.list = this.passedVar.auctions
+    console.log(this.passedVar.auctions)
+    
     this.it ={
       id:+this.route.snapshot.paramMap.get('id'),
       name:this.route.snapshot.paramMap.get('name'),
@@ -51,7 +55,7 @@ export class PageComponent implements OnInit {
       
     }  
     for (let index = 0; index < this.list.length; index++) {
-      this.list[index].ownerRealm = this.checkjson(this.list[index].item)
+     // this.list[index].ownerRealm = this.checkjson(this.list[index].item)
     }
 
     // Assign the data to the data source for the table to render
@@ -65,7 +69,7 @@ export class PageComponent implements OnInit {
     
     }
     console.log(this.it)
-
+    
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     
@@ -94,20 +98,6 @@ export class PageComponent implements OnInit {
       this.http.post(this.url+"addFavorite", send, httpOptions).subscribe(
         data => {
           console.log(data)
-          
-        }, error => {
-          console.log(error)
-          
-          
-        })
-    }
-    getlist(){
-      this.http.get<any>(this.url+"ping",).subscribe(
-        data => {
-          this.passedVar.itemlist= data
-          console.log(data)
-          this.passedVar.auctions=data.auctions
-          console.log(this.passedVar.auctions)
           
         }, error => {
           console.log(error)

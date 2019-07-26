@@ -10,7 +10,7 @@ export class LoadlistService {
 
   constructor(private http: HttpClient) { }
   getlist(){
-      return this.http.get(this.url+"ping",)
+      return this.http.get<any>(this.url+"ping",)
           
         }
     }
